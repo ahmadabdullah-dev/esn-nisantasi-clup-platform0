@@ -3,7 +3,7 @@ public interface IUserService
 {
     string? GetCurrentUserId();
     string? GetCurrentUserRole();
-    Task<Result<UserDto>> GetCurrentUserAsync();
+    Task<Result<CurrentUserMetaDataDto>> GetCurrentUserMetaDataAsync();
     Task<Result<UserDto>> GetUserByUserNameAsync(string userName);
 
 }

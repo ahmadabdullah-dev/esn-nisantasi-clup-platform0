@@ -14,7 +14,7 @@ public class UserController : BaseApiController
     [HttpGet("current-user")]
     public async Task<ActionResult> GetCurrentUser()
     {
-        var result = await _userService.GetCurrentUserAsync();
+        var result = await _userService.GetCurrentUserMetaDataAsync();
         return HandleResult(result);
     }
     [AllowAnonymous]
