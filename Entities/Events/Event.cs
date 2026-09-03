@@ -2,6 +2,8 @@
 
 public class Event : BaseEntity
 {
+    public string? EventPhotoUrl { get; set; }
+    public string? EventPhotoPublicId { get; set; }
     public required string HostId { get; set; }
     public AppUser Host { get; set; } = null!;
     public required string Title { get; set; }
