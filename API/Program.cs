@@ -1,6 +1,9 @@
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAPI();
+builder.Services.AddBusiness();
 builder.Services.AddDataAccess(builder.Configuration);
 
 builder.Services.AddControllers();
@@ -13,9 +16,14 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.MapScalarApiReference();
 }
+else
+{     
+    app.UseHsts();
+}
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
