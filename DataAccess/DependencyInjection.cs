@@ -30,6 +30,7 @@ namespace DataAccess
             .AddDefaultTokenProviders();
         
             services.AddScoped<DataSeeder>();
+            services.AddScoped<IEventRepository, EventRepository>();
 
             services.AddDataProtection();
 
