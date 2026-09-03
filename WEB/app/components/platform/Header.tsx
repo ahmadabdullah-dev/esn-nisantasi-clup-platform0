@@ -13,6 +13,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { NavLinks } from "./NavLinks";
 import NavDrawer from "./NavDrawer";
 import ESN_Nisantasi_Logo from "./ESN_Nisantasi_Logo";
+import LoginPageButton from "../auth/LoginPageButton";
 
 export default function Header() {
   const pathname = usePathname();
@@ -37,8 +38,16 @@ export default function Header() {
         }}
       >
         <Container maxWidth="xl">
-          <Toolbar disableGutters sx={{ minHeight: 72, gap: 2, display: "flex", justifyContent: "space-between" }}>
-             <ESN_Nisantasi_Logo/>
+          <Toolbar
+            disableGutters
+            sx={{
+              minHeight: 72,
+              gap: 2,
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <ESN_Nisantasi_Logo />
             <Box
               sx={{
                 display: { xs: "none", md: "flex" },
@@ -80,9 +89,10 @@ export default function Header() {
                     {page.label}
                   </Button>
                 );
-              })}
-            </Box>
+              })}     
+            <LoginPageButton/>
 
+            </Box>
             <IconButton
               aria-label="open navigation menu"
               onClick={() => setDrawerOpen(true)}

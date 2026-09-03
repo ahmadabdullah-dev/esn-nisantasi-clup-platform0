@@ -13,6 +13,7 @@ import ListItemText from "@mui/material/ListItemText";
 import CloseIcon from "@mui/icons-material/Close";
 import { NavLinks } from "./NavLinks";
 import ESN_Nisantasi_Logo from "./ESN_Nisantasi_Logo";
+import LoginPageButton from "../auth/LoginPageButton";
 
 type NavDrawerProps = {
   open: boolean;
@@ -49,8 +50,8 @@ export default function NavDrawer({ open, onClose }: NavDrawerProps) {
             px: 2,
             py: 1.5,
           }}
-        >          
-          <ESN_Nisantasi_Logo/>
+        >
+          <ESN_Nisantasi_Logo />
           <IconButton
             onClick={onClose}
             aria-label="close menu"
@@ -100,7 +101,15 @@ export default function NavDrawer({ open, onClose }: NavDrawerProps) {
               </ListItem>
             );
           })}
-        </List>    
+        </List>
+        <Divider />
+        <Box
+          sx={{
+            m:2
+          }}
+        >
+          <LoginPageButton />
+        </Box>
       </Box>
     </Drawer>
   );
