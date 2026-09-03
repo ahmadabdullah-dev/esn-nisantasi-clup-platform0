@@ -24,7 +24,19 @@ public static class DependencyInjection
                 return Task.CompletedTask;
             };
         });
- 
+
+        services.AddCors(options =>
+        {
+            options.AddPolicy("AllowWeb",
+                policy =>
+                {
+                    policy.WithOrigins("https://localhost:3000")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .AllowCredentials();
+                });
+        });
+
         return services;
     }
 }

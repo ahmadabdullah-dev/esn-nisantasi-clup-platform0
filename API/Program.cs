@@ -25,6 +25,8 @@ await app.Services.SeedDataAsync();
 
 app.UseHttpsRedirection();
 
+app.UseCors("AllowWeb");
+
 app.UseAuthentication();
 app.UseAuthorization();
 
