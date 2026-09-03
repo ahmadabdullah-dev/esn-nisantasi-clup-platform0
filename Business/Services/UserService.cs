@@ -55,5 +55,28 @@ public class UserService : IUserService
         };
         return Result<UserDto>.Success(userDto);
     }
- 
+    public async Task<Result<UserDto>> GetUserByUserNameAsync(string userName)
+    {
+
+        var user = await _userManager.FindByNameAsync(userName);
+
+        if (user == null)
+            return Result<UserDto>.Failure("User not found", 404);
+
+        var userDto = new UserDto()
+        {
+            Id = user.Id,
+            ProfilePhotoPublicId = user.ProfilePhotoPublicId,
+            UserName = user.UserName!,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Country = user.Country,
+            Email = user.Email!,
+            Department = user.Department,
+            IsActive = user.IsActive,
+        };
+        return Result<UserDto>.Success(userDto);
+    }
+
+
 }

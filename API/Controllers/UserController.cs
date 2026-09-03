@@ -17,5 +17,11 @@ public class UserController : BaseApiController
         var result = await _userService.GetCurrentUserAsync();
         return HandleResult(result);
     }
-
+    [AllowAnonymous]
+    [HttpGet("user-by-username/{userName}")]
+    public async Task<ActionResult> GetByUserName(string userName)
+    {
+        var result = await _userService.GetUserByUserNameAsync(userName);
+        return HandleResult(result);
+    }
 }
