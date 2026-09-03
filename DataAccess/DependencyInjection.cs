@@ -29,9 +29,17 @@ namespace DataAccess
             .AddEntityFrameworkStores<AppDbContext>()
             .AddDefaultTokenProviders();
         
+            services.AddScoped<DataSeeder>();
+
             services.AddDataProtection();
 
             return services;
+        }
+        public static async Task SeedDataAsync(this IServiceProvider serviceProvider)
+        {
+            using var scope = serviceProvider.CreateScope();
+            var seeder = scope.ServiceProvider.GetRequiredService<DataSeeder>();
+            await seeder.Seed();
         }
     }
 }

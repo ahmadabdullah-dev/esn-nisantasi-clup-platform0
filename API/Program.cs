@@ -21,6 +21,8 @@ else
     app.UseHsts();
 }
 
+await app.Services.SeedDataAsync();
+
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
