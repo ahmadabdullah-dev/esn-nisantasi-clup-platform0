@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Lato, Oswald } from "next/font/google";
 import "./globals.css";
+import Header from "./components/platform/Header";
 
 const latoBody = Lato({
   variable: "--font-geist-sans",
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${latoBody.variable} ${oswaldDisplay.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-esn-body">
+       <Header/>
         {children}
       </body>
     </html>
