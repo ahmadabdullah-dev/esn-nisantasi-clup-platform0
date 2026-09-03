@@ -18,11 +18,8 @@ public class BaseApiController : ControllerBase
         {
             400 => BadRequest(result.Error),
             401 => Unauthorized(result.Error),
-            403 => StatusCode(403, result.Error),
             404 => NotFound(result.Error),
             409 => Conflict(result.Error),
-            422 => UnprocessableEntity(result.Error),
-            429 => StatusCode(429, result.Error),
             _ => StatusCode(result.ErrorCode == 0 ? 500 : result.ErrorCode, result.Error)
         };
     }
