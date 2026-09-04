@@ -1,4 +1,6 @@
-﻿namespace Business.Services;
+﻿using DataAccess.Common;
+
+namespace Business.Services;
 
 public class EventService : IEventService
 {
@@ -36,5 +38,27 @@ public class EventService : IEventService
         {
             return Result<string>.Failure("Unexpected error happened", 500);
         }
+    }
+    public async Task<Result<PagedList<EventDto>>> GetPlansAsync(PaginationParams p, CancellationToken ct)
+    {
+        var plans = await _eventRepository.GetEventsAsync(p, ct);
+
+        var dtos = new PagedList<EventDto>
+        {
+            Items = plans.Items.Select(x => new EventDto
+            {
+                Id = x.Id,
+                HostId = x.HostId,
+                Title = x.Title,
+                Description = x.Description,
+                LocationName = x.LocationName,
+                PlannedAt = x.PlannedAt
+            }).ToList(),
+
+            CurrentPage = plans.CurrentPage,
+            TotalCount = plans.TotalCount,
+            TotalPages = plans.TotalPages,
+        };
+        return Result<PagedList<EventDto>>.Success(dtos);
     }
 }

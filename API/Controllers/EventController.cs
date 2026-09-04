@@ -19,5 +19,11 @@ public class EventController: BaseApiController
         var result = await _eventService.AddPlanAsync(dto, ct);
         return HandleResult(result);
     }
- 
+    [AllowAnonymous]
+    [HttpGet("paged")]
+    public async Task<ActionResult> GetPlans([FromQuery] PaginationParams p, CancellationToken ct)
+    {
+        var result = await _eventService.GetPlansAsync(p, ct);
+        return HandleResult(result);
+    }
 }
