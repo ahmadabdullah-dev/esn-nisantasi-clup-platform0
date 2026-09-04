@@ -39,13 +39,13 @@ public class EventService : IEventService
             return Result<string>.Failure("Unexpected error happened", 500);
         }
     }
-    public async Task<Result<PagedList<EventDto>>> GetPlansAsync(PaginationParams p, CancellationToken ct)
+    public async Task<Result<PagedList<EventDto>>> GetEventsAsync(PaginationParams p, CancellationToken ct)
     {
-        var plans = await _eventRepository.GetEventsAsync(p, ct);
+        var events = await _eventRepository.GetEventsAsync(p, ct);
 
         var dtos = new PagedList<EventDto>
         {
-            Items = plans.Items.Select(x => new EventDto
+            Items = events.Items.Select(x => new EventDto
             {
                 Id = x.Id,
                 HostId = x.HostId,
@@ -55,9 +55,9 @@ public class EventService : IEventService
                 PlannedAt = x.PlannedAt
             }).ToList(),
 
-            CurrentPage = plans.CurrentPage,
-            TotalCount = plans.TotalCount,
-            TotalPages = plans.TotalPages,
+            CurrentPage = events.CurrentPage,
+            TotalCount = events.TotalCount,
+            TotalPages = events.TotalPages,
         };
         return Result<PagedList<EventDto>>.Success(dtos);
     }

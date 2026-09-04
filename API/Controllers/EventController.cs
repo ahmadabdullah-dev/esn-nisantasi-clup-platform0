@@ -16,14 +16,14 @@ public class EventController: BaseApiController
     [HttpPost("add")]
     public async Task<ActionResult> AddEvent(CreateEventDto dto, CancellationToken ct)
     {
-        var result = await _eventService.AddPlanAsync(dto, ct);
+        var result = await _eventService.AddEventAsync(dto, ct);
         return HandleResult(result);
     }
     [AllowAnonymous]
     [HttpGet("paged")]
-    public async Task<ActionResult> GetPlans([FromQuery] PaginationParams p, CancellationToken ct)
+    public async Task<ActionResult> GetEvents([FromQuery] PaginationParams p, CancellationToken ct)
     {
-        var result = await _eventService.GetPlansAsync(p, ct);
+        var result = await _eventService.GetEventsAsync(p, ct);
         return HandleResult(result);
     }
 }
