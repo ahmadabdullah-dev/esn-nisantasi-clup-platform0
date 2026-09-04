@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DataAccess.Common;
+using DataAccess.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
@@ -72,5 +74,20 @@ public class UserService : IUserService
         return Result<UserDto>.Success(userDto);
     }
 
+    public async Task<Result<PagedList<UserDto>>> GetUsersAsync(PaginationParams p, CancellationToken ct)
+    {
+        var query = _userManager.Users
+            .OrderBy(x => x.FirstName) 
+            .Select(x => new UserDto
+            {
+                Id = x.Id,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                ProfilePhotoPublicId = x.ProfilePhotoPublicId,
+            });
 
+        var dtos = await PagedList<UserDto>.CreateAsync(query, p.Page, p.PageSize, ct);
+
+        return Result<PagedList<UserDto>>.Success(dtos);
+    }
 }

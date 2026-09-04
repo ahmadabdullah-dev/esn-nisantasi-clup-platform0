@@ -5,3 +5,4 @@ global using Business.Common;
 global using Business.Dtos;
 global using DataAccess.Interfaces;
 global using Entities.Events;
+global using DataAccess.Common;

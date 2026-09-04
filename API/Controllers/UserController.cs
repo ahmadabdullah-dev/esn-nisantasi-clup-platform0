@@ -24,4 +24,11 @@ public class UserController : BaseApiController
         var result = await _userService.GetUserByUserNameAsync(userName);
         return HandleResult(result);
     }
+    [AllowAnonymous]
+    [HttpGet("paged")]
+    public async Task<ActionResult> GetUsers([FromQuery] PaginationParams p, CancellationToken ct)
+    {
+        var result = await _userService.GetUsersAsync(p, ct);
+        return HandleResult(result);
+    }
 }

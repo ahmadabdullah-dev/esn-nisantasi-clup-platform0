@@ -13,7 +13,7 @@ public class EventService : IEventService
         _userService = userService;
     }
 
-    public async Task<Result<string>> AddPlanAsync(CreateEventDto dto, CancellationToken ct)
+    public async Task<Result<string>> AddEventAsync(CreateEventDto dto, CancellationToken ct)
     {
         var userId = _userService.GetCurrentUserId();
 
