@@ -12,3 +12,10 @@ export type AddEventDto = {
   description: string;
   plannedAt: string;
 };
+export type UpdateEventDto = {
+  planId: string;
+  title?: string;
+  locationName?: string;
+  description?: string;
+  plannedAt?: string;
+};

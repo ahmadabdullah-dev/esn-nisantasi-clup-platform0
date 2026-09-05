@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { PaginatedList, PaginationParams } from "../types/common";
-import { AddEventDto, EventDto } from "../types/event";
+import { AddEventDto, EventDto, UpdateEventDto } from "../types/event";
 import agent from "../api/agent";
 
 export const useGetEventsAsync = (pagination?: PaginationParams) => {
@@ -37,3 +37,16 @@ export function useGetEventById(id: string) {
     retry: false,
   });
 }
+export const useUpdateEvent = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (creds: UpdateEventDto) => {
+      const response = await agent.put<string>("/Event", creds);
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["plans"] });
+    },
+  });
+};
