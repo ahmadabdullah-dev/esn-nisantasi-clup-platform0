@@ -1,6 +1,4 @@
-﻿using DataAccess.Common;
-
-namespace Business.Services;
+﻿namespace Business.Services;
 
 public class EventService : IEventService
 {
@@ -80,4 +78,40 @@ public class EventService : IEventService
 
         return Result<EventDto>.Success(eventDto);
     }
+    public async Task<Result<string>> UpdateEventAsync(UpdateEventDto dto, CancellationToken ct)
+    {
+        var currentUserId = _userService.GetCurrentUserId();
+
+        if (currentUserId == null)
+            return Result<string>.Failure("Unauthorized perform", 401);
+
+        var @event = await _eventRepository.GetEventByIdAsync(dto.EventId, ct);
+
+        if (@event == null)
+            return Result<string>.Failure("Event not found", 404);
+
+        if (@event.HostId != currentUserId)
+            return Result<string>.Failure("Event can only be modified by the creator", 403);
+
+        if (!string.IsNullOrEmpty(dto.Title))
+            @event.Title = dto.Title.Trim();
+
+        if (!string.IsNullOrEmpty(dto.Description))
+            @event.Description = dto.Description.Trim();
+
+        if (!string.IsNullOrEmpty(dto.LocationName))
+            @event.LocationName = dto.LocationName.Trim();
+
+        if ((dto.PlannedAt.HasValue))
+            @event.PlannedAt = dto.PlannedAt.Value;
+
+        var isUpdated = await _eventRepository.UpdateEventAsync(@event, ct);
+
+        if (!isUpdated)
+            return Result<string>.Failure("Unexpected errror happened", 400);
+
+        return Result<string>.Success("Event updated successfully");
+    }
+
+
 }

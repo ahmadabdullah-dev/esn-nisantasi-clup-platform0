@@ -1,5 +1,6 @@
 ﻿using DataAccess.Common;
 using Microsoft.EntityFrameworkCore;
+using System.Numerics;
 
 namespace DataAccess.Repositories;
 
@@ -47,5 +48,10 @@ public class EventRepository : IEventRepository
                 HostId = x.HostId,
             });
         return await query.SingleOrDefaultAsync(ct);
+    }
+    public async Task<bool> UpdateEventAsync(Event @event, CancellationToken ct = default)
+    {
+        _appDbContext.Events.Update(@event);
+        return await _appDbContext.SaveChangesAsync(ct) > 0;
     }
 }

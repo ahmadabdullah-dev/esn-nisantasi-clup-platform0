@@ -33,4 +33,10 @@ public class EventController: BaseApiController
         var result = await _eventService.GetEventByIdAsync(eventId, ct);
         return HandleResult(result);
     }
+    [HttpPut]
+    public async Task<ActionResult> UpdateEvent(UpdateEventDto dto, CancellationToken ct)
+    {
+        var result = await _eventService.UpdateEventAsync(dto, ct);
+        return HandleResult(result);
+    }
 }
