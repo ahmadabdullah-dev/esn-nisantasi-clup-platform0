@@ -61,4 +61,23 @@ public class EventService : IEventService
         };
         return Result<PagedList<EventDto>>.Success(dtos);
     }
+    public async Task<Result<EventDto>> GetEventByIdAsync(string eventId, CancellationToken ct)
+    {
+        var @event = await _eventRepository.GetEventByIdAsync(eventId, ct);
+
+        if (@event == null)
+            return Result<EventDto>.Failure("Event not found", 404);
+
+        var eventDto = new EventDto
+        {
+            Id = @event.Id,
+            HostId = @event.HostId,
+            Title = @event.Title,
+            LocationName = @event.LocationName,
+            Description = @event.Description,
+            PlannedAt = @event.PlannedAt
+        };
+
+        return Result<EventDto>.Success(eventDto);
+    }
 }

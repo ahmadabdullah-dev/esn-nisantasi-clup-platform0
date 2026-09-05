@@ -26,4 +26,11 @@ public class EventController: BaseApiController
         var result = await _eventService.GetEventsAsync(p, ct);
         return HandleResult(result);
     }
+    [AllowAnonymous]
+    [HttpGet("by-id/{eventId}")]
+    public async Task<ActionResult> GetEventById([FromRoute] string eventId, CancellationToken ct)
+    {
+        var result = await _eventService.GetEventByIdAsync(eventId, ct);
+        return HandleResult(result);
+    }
 }

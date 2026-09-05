@@ -60,12 +60,12 @@ export default function Events() {
   return (
     <Container maxWidth="lg" sx={{ py: 8 }}>
       <Typography variant="h4" sx={{ mb: 4, fontWeight: 700 }}>
-        Plans
+        Events
       </Typography>
 
       {list.items.length === 0 ? (
         <Alert severity="info" variant="outlined">
-          No plans found.
+          No events found.
         </Alert>
       ) : (
         <Grid container spacing={3}>

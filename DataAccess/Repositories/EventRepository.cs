@@ -33,4 +33,19 @@ public class EventRepository : IEventRepository
             });
         return await PagedList<Event>.CreateAsync(query, p.Page, p.PageSize, ct);
     }
+    public async Task<Event?> GetEventByIdAsync(string eventId, CancellationToken ct = default)
+    {
+        var query = _appDbContext.Events.AsNoTracking()
+            .Where(x => x.Id == eventId)
+            .Select(x => new Event  
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Description = x.Description,
+                LocationName = x.LocationName,
+                PlannedAt = x.PlannedAt,
+                HostId = x.HostId,
+            });
+        return await query.SingleOrDefaultAsync(ct);
+    }
 }
