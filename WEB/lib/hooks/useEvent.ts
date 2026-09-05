@@ -27,3 +27,13 @@ export const useAddEventAsync = () => {
     },
   });
 };
+export function useGetEventById(id: string) {
+  return useQuery({
+    queryKey: ["events", id],
+    queryFn: async () =>
+      agent.get<EventDto>(`/Event/by-id/${id}`).then((res) => res.data),
+    staleTime: 5 * 60 * 1000,
+    enabled: !!id,
+    retry: false,
+  });
+}
