@@ -6,3 +6,9 @@ export interface EventDto {
   locationName: string;
   plannedAt: string;
 }
+export type AddEventDto = {
+  title: string;
+  locationName: string;
+  description: string;
+  plannedAt: string;
+};
