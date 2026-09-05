@@ -1,6 +1,4 @@
-﻿using DataAccess.Common;
-using DataAccess.Repositories;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
@@ -81,6 +79,7 @@ public class UserService : IUserService
             .Select(x => new UserDto
             {
                 Id = x.Id,
+                UserName = x.UserName!,
                 FirstName = x.FirstName,
                 LastName = x.LastName,
                 ProfilePhotoPublicId = x.ProfilePhotoPublicId,
